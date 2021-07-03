@@ -5,18 +5,18 @@ let data;
       const h1 = document.getElementById('h1');
       let total;
       const p = document.getElementById('det');
+      const till = document.getElementById('till')
 
       function fn(e){
           try {
             //   console.log(e.target.value)
               const index = e.target.value;
-          
+              const global = data.data.Global
             if(index == -1) {
                 h1.innerHTML = 'Covid 19 Global Cases';
                 // console.log(data.data.Global);
                 p.innerHTML = '';
-                const global = data.data.Global
-           
+                till.innerHTML = '';
                 glob[0].innerHTML = `TotalConfirmed <br> ${global.TotalConfirmed}`
                 glob[1].innerHTML = `TotalDeaths <br> ${global.TotalDeaths}`
                 glob[2].innerHTML = `TotalRecovered <br> ${global.TotalRecovered}`
@@ -35,6 +35,25 @@ let data;
                 glob2[0].innerHTML = `NewConfirmed <br> ${countries.NewConfirmed}`
                 glob2[1].innerHTML = `NewDeaths <br> ${countries.NewDeaths}`
                 glob2[2].innerHTML = `NewRecovered <br> ${countries.NewRecovered}`
+
+                till.innerHTML = `
+                <h3>percentage of people affected out of the total world wide</h3>
+                <table id="table">
+                <tr>
+                    <th>S.NO</th>
+                    <th>country</th>
+                    <th>Confirmed%</th>
+                    <th>Deaths%</th>
+                    <th>Recovered%</th>
+                </tr>
+                <tr>
+                <td>1</td>
+                    <td>${countries.Country}</td>
+                    <td>${(countries.TotalConfirmed/global.TotalConfirmed*100).toFixed(4)}%</td>
+                    <td>${(countries.TotalDeaths/global.TotalDeaths*100).toFixed(4)}%</td>
+                    <td>${(countries.TotalRecovered/global.TotalRecovered*100).toFixed(4)}%</td>
+                </tr>
+            </table>`
             }
           } catch (error) {
               console.log(error);
@@ -46,7 +65,7 @@ let data;
           try {
               data = await axios.get('https://api.covid19api.com/summary');
             //   console.log(data.data);
-
+              
               const global = data.data.Global
               total = global.TotalConfirmed;
               glob[0].innerHTML = `TotalConfirmed <br> ${global.TotalConfirmed}`
