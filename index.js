@@ -39,14 +39,14 @@ let data;
                 till.innerHTML = `
                 <h3>percentage of people affected out of the total world wide</h3>
                 <table id="table">
-                <tr>
+                <tr style="background-color: rgb(175, 129, 76);">
                     <th>S.NO</th>
                     <th>country</th>
                     <th>Confirmed%</th>
                     <th>Deaths%</th>
                     <th>Recovered%</th>
                 </tr>
-                <tr>
+                <tr style="background-color: rgb(175, 129, 76);">
                 <td>1</td>
                     <td>${countries.Country}</td>
                     <td>${(countries.TotalConfirmed/global.TotalConfirmed*100).toFixed(4)}%</td>
@@ -79,8 +79,14 @@ let data;
               const select = document.getElementById('option');
               for(let i=0; i<countries.length; i++) {
                   const country = countries[i]
+                  let color;
+                  let co = country.TotalConfirmed;
+                  if(co<10000) { color = 'rgb(211, 211, 0)' }
+                  else if(co>=10000 && co<100000) { color = 'rgb(2, 224, 2)' }
+                  else if(co>=100000 && co<1000000){ color = 'rgb(0, 154, 250)'}
+                  else { color = 'rgb(255, 0, 0)'}
                   const template = `
-                  <tr>
+                  <tr style="background-color: ${color};">
                       <td>${i+1}</td>
                       <td>${country.Country}</td>
                       <td>${country.TotalConfirmed}</td>
